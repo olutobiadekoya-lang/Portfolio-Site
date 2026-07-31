@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Olutobi D. Adekoya | Business Intelligence &amp; Data Analyst Portfolio</title>
+<style>
+  :root{
+    --bg:#0f1115;
+    --panel:#161922;
+    --panel-light:#1e2230;
+    --text:#eef0f4;
+    --muted:#9aa3b2;
+    --accent:#5b8cff;
+    --accent2:#7ee0c9;
+    --border:#2a2f3d;
+    --maxw:1180px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:"Segoe UI", -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+    line-height:1.65;
+  }
+  a{color:var(--accent);}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 28px;}
+
+  /* Top nav */
+  nav.topnav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(13,15,19,0.92); backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--border);
+  }
+  .navwrap{ display:flex; align-items:center; justify-content:space-between; padding:14px 28px; flex-wrap:wrap; gap:10px; }
+  .navbrand{ font-weight:800; font-size:14.5px; color:var(--text); letter-spacing:.01em; }
+  .navlinks{ display:flex; gap:22px; flex-wrap:wrap; }
+  .navlinks a{ font-size:13.5px; color:var(--muted); text-decoration:none; font-weight:600; }
+  .navlinks a:hover{ color:var(--accent2); }
+
+  /* Header / Hero */
+  header.hero{
+    padding:64px 0 56px;
+    background:
+      radial-gradient(1000px 500px at 15% -10%, rgba(91,140,255,0.18), transparent 60%),
+      radial-gradient(900px 460px at 90% 0%, rgba(126,224,201,0.14), transparent 60%);
+    border-bottom:1px solid var(--border);
+  }
+  .eyebrow{
+    text-transform:uppercase; letter-spacing:.14em; font-size:12.5px;
+    color:var(--accent2); font-weight:700; margin-bottom:14px;
+  }
+  h1.name{ font-size:42px; margin:0 0 8px; font-weight:800; letter-spacing:-0.01em; }
+  .role{ font-size:18px; color:var(--muted); margin-bottom:22px; }
+  .role b{ color:#c7cdd8; font-weight:600; }
+  .hero p.lead{ max-width:780px; color:#c7cdd8; font-size:16px; }
+  .hero-tags{ display:flex; flex-wrap:wrap; gap:10px; margin-top:24px; }
+  .tag{
+    border:1px solid var(--border); background:var(--panel);
+    color:var(--muted); padding:7px 14px; border-radius:999px; font-size:13px;
+  }
+
+  /* Buttons */
+  .btn-row{ display:flex; gap:12px; flex-wrap:wrap; margin-top:28px; }
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:11px 20px; border-radius:9px; font-size:14px; font-weight:700;
+    text-decoration:none; border:1px solid var(--border); line-height:1;
+  }
+  .btn-primary{ background:var(--accent); color:#0b0d12; border-color:var(--accent); }
+  .btn-primary:hover{ opacity:0.9; }
+  .btn-outline{ background:transparent; color:var(--text); }
+  .btn-outline:hover{ border-color:var(--accent2); color:var(--accent2); }
+  .contact-strip{ margin-top:18px; display:flex; gap:20px; flex-wrap:wrap; font-size:13.5px; color:var(--muted); }
+
+  /* Section shells */
+  section{ padding:66px 0; }
+  section.alt{ background:#12141c; border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+  .section-head{ max-width:760px; margin-bottom:36px; }
+  .section-head h2{ font-size:26px; margin:0 0 10px; }
+  .section-head p{ color:var(--muted); font-size:15px; margin:0; }
+
+  /* Experience timeline */
+  .exp-card{
+    background:var(--panel); border:1px solid var(--border); border-radius:14px;
+    padding:26px 28px; margin-bottom:20px;
+  }
+  .exp-card.secondary{ opacity:0.90; }
+  .exp-head{ display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:2px; }
+  .exp-org{ font-size:17.5px; font-weight:700; color:var(--text); }
+  .exp-loc{ font-size:13px; color:var(--muted); font-weight:400; }
+  .exp-role{ font-size:14.5px; color:var(--accent2); font-weight:600; margin:4px 0 2px; }
+  .exp-meta{ font-size:13px; color:var(--muted); white-space:nowrap; font-weight:700; }
+  .exp-card ul{ margin:14px 0 0; padding-left:20px; color:#c7cdd8; font-size:14.5px; }
+  .exp-card li{ margin-bottom:7px; }
+
+  /* Dashboard cards */
+  .dash-card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:16px;
+    overflow:hidden;
+    margin-bottom:46px;
+  }
+  .dash-card img{
+    width:100%; display:block; border-bottom:1px solid var(--border);
+    background:#f3f2f1;
+  }
+  .dash-body{ padding:26px 30px 30px; }
+  .dash-meta{ display:flex; align-items:center; gap:10px; margin-bottom:10px; flex-wrap:wrap; }
+  .org-pill{
+    font-size:12px; font-weight:700; letter-spacing:.05em; text-transform:uppercase;
+    padding:5px 11px; border-radius:6px;
+  }
+  .practice-badge{
+    font-size:11px; font-weight:700; letter-spacing:.05em; text-transform:uppercase;
+    padding:5px 10px; border-radius:6px; background:rgba(154,163,178,0.15); color:var(--muted);
+    border:1px solid var(--border);
+  }
+  .dash-title{ font-size:21px; font-weight:700; margin:0 0 12px; }
+  .dash-desc{ color:#c7cdd8; font-size:15px; margin-bottom:18px; }
+  .feature-row{ display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:14px; margin-top:16px; }
+  .feature{
+    border:1px solid var(--border); background:var(--panel-light);
+    border-radius:10px; padding:14px 16px;
+  }
+  .feature .k{ font-size:11.5px; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); margin-bottom:4px; }
+  .feature .v{ font-size:14px; color:var(--text); }
+
+  /* org color accents */
+  .ashland .org-pill{ background:rgba(92,15,140,0.25); color:#c9a4f2; border:1px solid rgba(92,15,140,0.5); }
+  .ashland .dash-card{ border-top:3px solid #5C0F8C; }
+  .caltrans .org-pill{ background:rgba(214,90,31,0.2); color:#ffb98a; border:1px solid rgba(214,90,31,0.5); }
+  .caltrans .dash-card{ border-top:3px solid #D65A1F; }
+  .accupay .org-pill{ background:rgba(154,163,178,0.16); color:#c3cad6; border:1px solid rgba(154,163,178,0.4); }
+  .accupay .dash-card{ border-top:3px solid #5b6272; }
+
+  /* Skills grid */
+  .skills-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:18px; }
+  .skill-box{ background:var(--panel); border:1px solid var(--border); border-radius:14px; padding:22px 24px; }
+  .skill-box h3{ font-size:15.5px; margin:0 0 8px; color:var(--accent2); }
+  .skill-box p{ margin:0; font-size:14px; color:var(--muted); }
+
+  /* Education grid */
+  .edu-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:18px; margin-bottom:20px; }
+  .edu-box{ background:var(--panel); border:1px solid var(--border); border-radius:14px; padding:22px 24px; }
+  .edu-box .edu-top{ display:flex; justify-content:space-between; gap:10px; }
+  .edu-box h3{ margin:0 0 4px; font-size:15.5px; }
+  .edu-box .edu-year{ color:var(--muted); font-size:13px; white-space:nowrap; font-weight:700; }
+  .edu-box .edu-sub{ color:var(--muted); font-size:13.5px; margin:0; }
+  .cert-row{ display:flex; flex-wrap:wrap; gap:10px; margin-top:22px; }
+
+  footer{ padding:50px 0 70px; text-align:center; color:var(--muted); font-size:13.5px; }
+  footer a{ color:var(--accent2); text-decoration:none; }
+  footer .foot-links{ display:flex; justify-content:center; gap:18px; flex-wrap:wrap; margin-bottom:10px; }
+
+  @media (max-width:640px){
+    h1.name{ font-size:30px; }
+    header.hero{ padding:40px 0 40px; }
+    section{ padding:44px 0; }
+    .navlinks{ gap:14px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="wrap navwrap">
+    <span class="navbrand">Olutobi D. Adekoya</span>
+    <div class="navlinks">
+      <a href="#experience">Experience</a>
+      <a href="#dashboards">Dashboards</a>
+      <a href="#skills">Skills</a>
+      <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Business Intelligence &amp; Data Analyst Portfolio</div>
+    <h1 class="name">Olutobi D. Adekoya</h1>
+    <div class="role">Business Intelligence Analyst &middot; Data Analyst &middot; <b>Senior Business Analyst</b></div>
+    <p class="lead">
+      6+ years leading requirements gathering, process improvement, and stakeholder engagement across
+      government, higher education, and financial services &mdash; with an MBA in Business Analytics
+      (STEM-designated), Microsoft PL-300 certification, and a Six Sigma Green Belt. I build Power BI
+      dashboards end to end: facilitating stakeholder workshops, modeling data in DAX and SQL, and
+      translating open business questions into decision-ready analytics. Below is my professional
+      experience, followed by dashboards built during my time at Ashland University and Caltrans District 4,
+      plus one self-directed practice project.
+    </p>
+    <div class="hero-tags">
+      <span class="tag">Power BI (DAX, Power Query)</span>
+      <span class="tag">SQL</span>
+      <span class="tag">Requirements Gathering &amp; BRDs</span>
+      <span class="tag">Stakeholder Workshops</span>
+      <span class="tag">Agile &amp; Scrum</span>
+      <span class="tag">Process Improvement</span>
+      <span class="tag">PL-300 Certified</span>
+    </div>
+    <div class="btn-row">
+      <a class="btn btn-primary" href="mailto:olutobiadekoya@gmail.com">Email Me</a>
+      <a class="btn btn-outline" href="https://www.linkedin.com/in/adekoya-olutobi" target="_blank" rel="noopener">LinkedIn Profile</a>
+      <a class="btn btn-outline" href="Olutobi_Adekoya_Resume.pdf" download>Download R&eacute;sum&eacute;</a>
+    </div>
+    <div class="contact-strip">
+      <span>olutobiadekoya@gmail.com</span>
+      <span>(567) 284-0709</span>
+      <span>North Royalton, OH</span>
+    </div>
+  </div>
+</header>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Professional Experience</h2>
+      <p>Six-plus years turning business questions into requirements, data models, and dashboards &mdash;
+        across government, higher education, and financial services.</p>
+    </div>
+
+    <div class="exp-card">
+      <div class="exp-head">
+        <div>
+          <div class="exp-org">California Department of Transportation (Caltrans), District 4 <span class="exp-loc">&middot; Fairfield, CA</span></div>
+          <div class="exp-role">Analyst II, Business &amp; Data Analyst</div>
+        </div>
+        <div class="exp-meta">Jan 2026 &ndash; Present</div>
+      </div>
+      <ul>
+        <li>Led requirements gathering sessions and stakeholder workshops with field operations, maintenance teams, and executive leadership to define project scope and prioritize initiatives supporting District 4 operations.</li>
+        <li>Owned backlog refinement, sprint planning, and requirements traceability for cross-functional automation projects, translating business requirements into epics, user stories, and development-ready specifications.</li>
+        <li>Performed current-state and future-state process analysis to identify automation opportunities, reducing manual reporting effort by approximately 12 hours per week.</li>
+        <li>Developed SQL-based data profiling and analysis solutions supporting resource allocation decisions across maintenance regions serving the San Francisco Bay Area.</li>
+        <li>Partnered with 50+ stakeholders to align reporting, analytics, and process improvement initiatives with operational objectives and performance targets.</li>
+        <li>Designed and implemented Power BI, Power Automate, and Power Apps solutions that improved visibility into operational KPIs and supported data-driven decision-making.</li>
+      </ul>
+    </div>
+
+    <div class="exp-card secondary">
+      <div class="exp-head">
+        <div>
+          <div class="exp-org">KeyBank <span class="exp-loc">&middot; Brooklyn, OH</span></div>
+          <div class="exp-role">Service Specialist I</div>
+        </div>
+        <div class="exp-meta">Jul 2025 &ndash; Jan 2026</div>
+      </div>
+      <ul>
+        <li>Analyzed customer financial profiles, lending data, and risk indicators to support accurate credit and lending decisions while ensuring compliance with banking policies.</li>
+        <li>Investigated transaction patterns and collaborated with fraud prevention teams to identify potential risks and escalate suspicious activities.</li>
+        <li>Performed root cause analysis on customer account issues, resolving discrepancies and improving service delivery through data-driven problem-solving.</li>
+      </ul>
+    </div>
+
+    <div class="exp-card">
+      <div class="exp-head">
+        <div>
+          <div class="exp-org">Ashland University <span class="exp-loc">&middot; Ashland, OH</span></div>
+          <div class="exp-role">Business Intelligence &amp; Data Analyst</div>
+        </div>
+        <div class="exp-meta">May 2023 &ndash; May 2025</div>
+      </div>
+      <ul>
+        <li>Facilitated requirements discovery sessions with academic and administrative stakeholders to document business rules and reporting requirements for enterprise reporting initiatives.</li>
+        <li>Authored user stories, acceptance criteria, and functional specifications supporting development of retention, graduation, enrollment, and institutional effectiveness dashboards.</li>
+        <li>Conducted gap analyses between existing reporting processes and stakeholder requirements, recommending scalable Power BI solutions that replaced manual reporting activities.</li>
+        <li>Designed and deployed enterprise dashboards analyzing 25,000+ student records, enabling leadership to monitor enrollment trends, retention rates, and institutional KPIs.</li>
+        <li>Developed predictive enrollment forecasting models in R using historical enrollment data, providing leadership with actionable projections for strategic planning.</li>
+        <li>Led User Acceptance Testing (UAT) activities, validating business rules and ensuring reporting outputs aligned with stakeholder expectations.</li>
+      </ul>
+    </div>
+
+    <div class="exp-card secondary">
+      <div class="exp-head">
+        <div>
+          <div class="exp-org">Cricket Wireless / Delphos Wireless <span class="exp-loc">&middot; Ohio</span></div>
+          <div class="exp-role">Retail / Territory Sales Manager</div>
+        </div>
+        <div class="exp-meta">Feb 2021 &ndash; Apr 2023</div>
+      </div>
+      <ul>
+        <li>Analyzed territory performance data and business KPIs to identify sales trends, operational risks, and growth opportunities across multiple locations.</li>
+        <li>Developed recurring performance reports and dashboards that improved visibility into promotional effectiveness and territory-wide results.</li>
+        <li>Conducted performance reviews and variance analyses to identify gaps between actual and target results, enabling timely corrective actions.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="alt" id="dashboards">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Featured Dashboards</h2>
+      <p>Dashboards built during my roles at Ashland University and Caltrans District 4, plus one self-directed
+        practice project. Figures shown are illustrative placeholder numbers standing in for confidential
+        institutional and operational data.</p>
+    </div>
+
+    <!-- Dashboard 1 -->
+    <div class="dash-card ashland">
+      <img src="dashboard_1_ashland_retention.png" alt="Ashland University Student Retention and Graduation Dashboard">
+      <div class="dash-body">
+        <div class="dash-meta"><span class="org-pill">Ashland University</span></div>
+        <h3 class="dash-title">Student Retention &amp; Graduation Dashboard</h3>
+        <p class="dash-desc">
+          Built during my time as Ashland University's Business Intelligence &amp; Data Analyst, this dashboard
+          tracks how well the university keeps and graduates its students, year over year, across a base of
+          25,000+ student records. The top half shows a fall-to-fall retention line chart comparing the overall
+          student body against Pell Grant recipients across seven entering cohorts, so staff can immediately see
+          whether retention is improving and whether equity gaps are closing. The bottom half shows a six-year
+          graduation-rate bar chart by entering fall cohort, giving a longer-range view of how each incoming
+          class ultimately performs. A left-hand filter panel lets users slice every visual by student ID, Pell
+          status, gender, class level (freshman, sophomore, etc.), cohort type, college, residency, and fall
+          term &mdash; so an advisor, dean, or accreditation reviewer can drill from the university-wide number
+          down to a specific subgroup in a couple of clicks.
+        </p>
+        <div class="feature-row">
+          <div class="feature"><div class="k">Role</div><div class="v">Ashland University &mdash; BI &amp; Data Analyst (2023&ndash;2025)</div></div>
+          <div class="feature"><div class="k">Key Visuals</div><div class="v">Fall-to-fall retention line chart, graduation-rate bar chart</div></div>
+          <div class="feature"><div class="k">Filters</div><div class="v">Student ID, Pell, gender, class level, cohort type, college</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dashboard 2 -->
+    <div class="dash-card ashland">
+      <img src="dashboard_2_ashland_majors_minors.png" alt="Ashland University Active Majors and Minors Dashboard">
+      <div class="dash-body">
+        <div class="dash-meta"><span class="org-pill">Ashland University</span></div>
+        <h3 class="dash-title">Active Majors &amp; Minors Dashboard</h3>
+        <p class="dash-desc">
+          Also built for Ashland's academic affairs office, this dashboard gives leadership a real-time view of
+          program enrollment across the entire university. A horizontal bar chart ranks every department by
+          number of active majors, while a stacked bar chart compares majors against minors across each college,
+          and a donut chart breaks down enrollment status (active, on leave, pending declare). KPI cards up top
+          surface the headline numbers &mdash; total active majors, total active minors, number of degree
+          programs, and number of colleges represented. Academically relevant filters (college/faculty,
+          department, degree level, class standing, program type, enrollment status, academic year) let deans
+          and program directors quickly see which programs are growing, which are shrinking, and how minors are
+          distributed alongside majors.
+        </p>
+        <div class="feature-row">
+          <div class="feature"><div class="k">Role</div><div class="v">Ashland University &mdash; BI &amp; Data Analyst (2023&ndash;2025)</div></div>
+          <div class="feature"><div class="k">Key Visuals</div><div class="v">Majors-by-department bar chart, majors-vs-minors by college, enrollment donut</div></div>
+          <div class="feature"><div class="k">Filters</div><div class="v">College/faculty, department, degree level, class standing, program type</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dashboard 3 -->
+    <div class="dash-card caltrans">
+      <img src="dashboard_3_caltrans.png" alt="Caltrans Highway Project and Pavement Performance Dashboard">
+      <div class="dash-body">
+        <div class="dash-meta"><span class="org-pill">Caltrans</span></div>
+        <h3 class="dash-title">Highway Project &amp; Pavement Performance Dashboard</h3>
+        <p class="dash-desc">
+          Built as part of my current role as Analyst II at Caltrans District 4, this dashboard monitors
+          statewide highway project delivery and pavement condition for stakeholders across field operations,
+          maintenance, and executive leadership. A line chart tracks cumulative capital spend against planned
+          budget across the fiscal year, immediately flagging whether the program is over or under pace. A bar
+          chart breaks down active projects by district, and a donut chart shows the statewide split of pavement
+          condition (good, fair, poor) alongside the average Pavement Condition Index. KPI cards summarize active
+          project count, on-budget delivery rate, average condition index, and year-to-date spend. Filters for
+          district, route, project phase, funding program, fiscal year, priority level, and asset type let
+          regional managers focus on exactly the slice of the network they oversee &mdash; the same kind of
+          Power BI and Power Automate reporting I built to replace manual processes and cut reporting effort by
+          roughly 12 hours a week for a stakeholder group of 50+.
+        </p>
+        <div class="feature-row">
+          <div class="feature"><div class="k">Role</div><div class="v">Caltrans District 4 &mdash; Analyst II (2026&ndash;Present)</div></div>
+          <div class="feature"><div class="k">Key Visuals</div><div class="v">Spend-vs-budget trend line, projects-by-district bar chart, condition donut</div></div>
+          <div class="feature"><div class="k">Filters</div><div class="v">District, route/highway, project phase, funding program, fiscal year</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dashboard 4 -->
+    <div class="dash-card accupay">
+      <img src="dashboard_4_accupay.png" alt="Accupay Payroll and Workforce Analytics Dashboard">
+      <div class="dash-body">
+        <div class="dash-meta">
+          <span class="org-pill">Accupay</span>
+          <span class="practice-badge">Practice Project</span>
+        </div>
+        <h3 class="dash-title">Payroll &amp; Workforce Analytics Dashboard</h3>
+        <p class="dash-desc">
+          A self-directed practice dashboard modeled on payroll and workforce reporting, built to extend my
+          Power BI skills into HR and finance analytics outside my day-to-day project work. A monthly trend line
+          separates base payroll cost from overtime cost, making it easy to spot seasonal overtime spikes. A bar
+          chart shows headcount by department, and a donut chart shows the workforce mix across full-time,
+          part-time, and seasonal employees. KPI cards up top report quarter-to-date payroll processed, active
+          headcount, overtime rate, and on-time payroll rate. Filters for client/company, pay period, department,
+          employee type, location, fiscal quarter, and pay status let a payroll specialist narrow the view down
+          to a single client or pay run in seconds.
+        </p>
+        <div class="feature-row">
+          <div class="feature"><div class="k">Context</div><div class="v">Self-directed practice project, not a client engagement</div></div>
+          <div class="feature"><div class="k">Key Visuals</div><div class="v">Payroll-cost trend line, headcount-by-department bar chart, workforce-mix donut</div></div>
+          <div class="feature"><div class="k">Filters</div><div class="v">Client/company, pay period, department, employee type, location</div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Core Skills</h2>
+      <p>What goes into building dashboards like these, end to end &mdash; from stakeholder workshop to shipped
+        Power BI report.</p>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-box">
+        <h3>BI &amp; Visualization</h3>
+        <p>Power BI (DAX, Power Query), Tableau, Power Apps, Power Automate &mdash; data modeling, calculated
+          measures, and time-intelligence for cohort and fiscal-period analysis.</p>
+      </div>
+      <div class="skill-box">
+        <h3>Data &amp; Programming</h3>
+        <p>SQL, Python, R, Snowflake, Advanced Excel, data mapping and profiling to turn messy source extracts
+          into clean, dashboard-ready tables.</p>
+      </div>
+      <div class="skill-box">
+        <h3>Business Analysis</h3>
+        <p>BRDs, user stories &amp; acceptance criteria, requirements traceability matrix (RTM), gap analysis,
+          root cause analysis, process mapping (BPMN), process reengineering.</p>
+      </div>
+      <div class="skill-box">
+        <h3>Delivery &amp; Stakeholder Management</h3>
+        <p>Agile &amp; Scrum, SDLC, UAT planning &amp; execution, stakeholder management, workshop facilitation,
+          change management.</p>
+      </div>
+      <div class="skill-box">
+        <h3>Platforms &amp; Tools</h3>
+        <p>JIRA, Workday, ARGOS, Banner, and AI-assisted automation for reporting and process improvement.</p>
+      </div>
+      <div class="skill-box">
+        <h3>Dashboard UX</h3>
+        <p>Filter/slicer design, KPI card layout, and visual hierarchy so non-technical stakeholders can
+          self-serve answers.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="alt" id="education">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Education &amp; Certifications</h2>
+    </div>
+    <div class="edu-grid">
+      <div class="edu-box">
+        <div class="edu-top">
+          <h3>Master of Business Administration, Business Analytics <span style="color:var(--muted); font-weight:400;">(STEM-Designated)</span></h3>
+          <span class="edu-year">2025</span>
+        </div>
+        <p class="edu-sub">Ashland University, Ohio &middot; Beta Gamma Sigma Honor Society</p>
+      </div>
+      <div class="edu-box">
+        <div class="edu-top">
+          <h3>Bachelor of Science, Microbiology</h3>
+          <span class="edu-year">2020</span>
+        </div>
+        <p class="edu-sub">Obafemi Awolowo University, Nigeria &middot; Immunology &amp; Virology</p>
+      </div>
+    </div>
+    <div class="cert-row">
+      <span class="tag">Microsoft Power BI Data Analyst Associate (PL-300)</span>
+      <span class="tag">Six Sigma Green Belt</span>
+      <span class="tag">Business Intelligence &amp; Data Analyst (BIDA)</span>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="foot-links">
+      <a href="mailto:olutobiadekoya@gmail.com">olutobiadekoya@gmail.com</a>
+      <a href="tel:+15672840709">(567) 284-0709</a>
+      <a href="https://www.linkedin.com/in/adekoya-olutobi" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="Olutobi_Adekoya_Resume.pdf" download>Download R&eacute;sum&eacute;</a>
+    </div>
+    Olutobi D. Adekoya &middot; North Royalton, OH
+    <div style="margin-top:8px; color:#5b6272;">Dashboard figures shown are illustrative placeholder data, not confidential institutional or operational data.</div>
+  </div>
+</footer>
+
+</body>
+</html>
