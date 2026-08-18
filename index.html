@@ -112,7 +112,7 @@
   .dash-meta{ display:flex; align-items:center; gap:10px; margin-bottom:10px; flex-wrap:wrap; }
   .org-pill{
     font-size:12px; font-weight:700; letter-spacing:.05em; text-transform:uppercase;
-    padding:5px 11px; border-radius:6px;
+    padding:5px 11px; border-radius:6px; display:inline-block;
   }
   .practice-badge{
     font-size:11px; font-weight:700; letter-spacing:.05em; text-transform:uppercase;
@@ -129,13 +129,45 @@
   .feature .k{ font-size:11.5px; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); margin-bottom:4px; }
   .feature .v{ font-size:14px; color:var(--text); }
 
+  /* Project groups (one per company) — dashboards shown side by side */
+  .project-group{ margin-bottom:52px; }
+  .project-group:last-child{ margin-bottom:0; }
+  .project-head{ margin-bottom:18px; }
+  .project-head .project-meta-row{ display:flex; align-items:center; gap:10px; margin-bottom:10px; flex-wrap:wrap; }
+  .project-head h3{ font-size:20px; margin:0 0 4px; }
+  .project-role{ font-size:13.5px; color:var(--accent2); font-weight:600; margin:0 0 10px; }
+  .project-head p{ color:#c7cdd8; font-size:14.5px; margin:0; max-width:820px; }
+
+  .dash-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:18px; }
+  .dash-tile{
+    background:var(--panel); border:1px solid var(--border); border-radius:12px;
+    overflow:hidden; display:flex; flex-direction:column;
+  }
+  .dash-tile img{
+    width:100%; aspect-ratio:16/10; object-fit:cover; object-position:top;
+    display:block; cursor:zoom-in; border-bottom:1px solid var(--border); background:#f3f2f1;
+  }
+  .tile-body{ padding:16px 18px; flex:1; display:flex; flex-direction:column; }
+  .tile-body h4{ font-size:14.5px; margin:0 0 6px; font-weight:700; }
+  .tile-body p{ font-size:12.5px; color:var(--muted); margin:0 0 10px; flex:1; }
+  .tile-meta{ font-size:11px; color:var(--muted); line-height:1.6; border-top:1px solid var(--border); padding-top:8px; }
+  .tile-meta b{ color:#c7cdd8; font-weight:600; }
+
+  /* Lightbox for full-size dashboard screenshots */
+  .lightbox{
+    display:none; position:fixed; inset:0; z-index:200; align-items:center; justify-content:center;
+    background:rgba(6,7,10,0.92); padding:40px; cursor:zoom-out;
+  }
+  .lightbox.active{ display:flex; }
+  .lightbox img{ max-width:100%; max-height:100%; border-radius:10px; box-shadow:0 20px 60px rgba(0,0,0,0.5); }
+
   /* org color accents */
   .ashland .org-pill{ background:rgba(92,15,140,0.25); color:#c9a4f2; border:1px solid rgba(92,15,140,0.5); }
-  .ashland .dash-card{ border-top:3px solid #5C0F8C; }
+  .ashland .dash-tile{ border-top:3px solid #5C0F8C; }
   .caltrans .org-pill{ background:rgba(214,90,31,0.2); color:#ffb98a; border:1px solid rgba(214,90,31,0.5); }
-  .caltrans .dash-card{ border-top:3px solid #D65A1F; }
+  .caltrans .dash-tile{ border-top:3px solid #D65A1F; }
   .project .org-pill{ background:rgba(91,140,255,0.2); color:#a9c2ff; border:1px solid rgba(91,140,255,0.5); }
-  .project .dash-card{ border-top:3px solid #5b8cff; }
+  .project .dash-tile{ border-top:3px solid #5b8cff; }
 
   /* Skills grid */
   .skills-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:18px; }
@@ -296,211 +328,133 @@
     <div class="section-head">
       <h2>Featured Dashboards</h2>
       <p>Real Power BI dashboard screenshots from my work at Ashland University and Caltrans District 4,
-        covering student housing, degree completion, retention/graduation, program enrollment, and
-        maintenance budget reporting &mdash; plus independent practice builds using public/sample data.</p>
+        grouped by project, plus independent practice builds using public/sample data. Click any
+        screenshot to view it full-size.</p>
     </div>
 
-    <!-- Dashboard 1: Ashland Housing -->
-    <div class="dash-card ashland">
-      <img src="dashboard_ashland_housing.png" alt="Ashland University Housing Occupancy vs. Operational Capacity Dashboard">
-      <div class="dash-body">
-        <div class="dash-meta"><span class="org-pill">Ashland University</span></div>
-        <h3 class="dash-title">Housing &mdash; Occupancy vs. Operational Capacity</h3>
-        <p class="dash-desc">
-          Built for Ashland's residence life office, this dashboard tracks how full campus housing is
-          relative to operational capacity, term by term. KPI cards up top surface open beds, buyouts,
-          percent occupied, and percent to goal, next to a radial gauge showing current occupancy
-          (1,057 residents) against total capacity (1,496 beds). A bar chart below tracks monthly
-          occupancy against a fixed occupancy goal line, so housing staff can spot a slide toward the
-          goal before it becomes a shortfall. Filters for term, residence hall, room type, gender, class
-          level, and athlete status let staff drill from the university-wide number down to a single hall
-          or population, and a tab strip links out to companion views for capacity detail, occupancy vs.
-          revenue, and billed vs. budgeted revenue.
-        </p>
-        <div class="feature-row">
-          <div class="feature"><div class="k">Role</div><div class="v">Ashland University &mdash; BI &amp; Data Analyst (2023&ndash;2025)</div></div>
-          <div class="feature"><div class="k">Key Visuals</div><div class="v">Occupancy gauge, KPI cards, monthly occupancy-vs-goal bar chart</div></div>
-          <div class="feature"><div class="k">Filters</div><div class="v">Term, residence hall, room type, gender, class level, athlete</div></div>
+    <!-- Project 1: Ashland University -->
+    <div class="project-group ashland">
+      <div class="project-head">
+        <div class="project-meta-row"><span class="org-pill">Ashland University</span></div>
+        <h3>Enterprise Reporting &amp; Institutional Analytics</h3>
+        <p class="project-role">BI &amp; Data Analyst &middot; May 2023 &ndash; May 2025</p>
+        <p>Four Power BI dashboards built for academic affairs and residence life, analyzing 25,000+
+          student records to track housing occupancy, degree completions, retention/graduation, and
+          program enrollment across the university.</p>
+      </div>
+      <div class="dash-grid">
+        <div class="dash-tile">
+          <img src="dashboard_ashland_housing.png" alt="Ashland University Housing Occupancy vs. Operational Capacity Dashboard" onclick="openLightbox(this.src)">
+          <div class="tile-body">
+            <h4>Housing &mdash; Occupancy vs. Capacity</h4>
+            <p>Tracks residence hall occupancy against operational capacity by term. KPI cards and a
+              radial gauge show current occupancy (1,057 of 1,496 beds) alongside a monthly
+              occupancy-vs-goal trend.</p>
+            <div class="tile-meta"><b>Visuals:</b> Occupancy gauge, KPI cards, monthly trend bar chart<br><b>Filters:</b> Hall, room type, gender, class level, athlete</div>
+          </div>
+        </div>
+        <div class="dash-tile">
+          <img src="dashboard_ashland_degrees_awarded.png" alt="Ashland University Degrees Awarded (Unduplicated) Dashboard" onclick="openLightbox(this.src)">
+          <div class="tile-body">
+            <h4>Degrees Awarded (Unduplicated)</h4>
+            <p>Shows degrees conferred each year by level (certificate through doctorate) and by college,
+              across eight academic years. Flags that current-year totals aren't final until summer
+              degrees post.</p>
+            <div class="tile-meta"><b>Visuals:</b> Degrees-by-level and degrees-by-college bar charts<br><b>Filters:</b> Semester, college, department, program, degree type</div>
+          </div>
+        </div>
+        <div class="dash-tile">
+          <img src="dashboard_ashland_retention_graduation.png" alt="Ashland University Retention and Graduation Dashboard" onclick="openLightbox(this.src)">
+          <div class="tile-body">
+            <h4>Retention and Graduation</h4>
+            <p>Tracks fall-to-fall retention (73%) and six-year graduation (60%) by entering cohort. A
+              stacked bar chart breaks graduation into 4/5/6-year completions, with deep filters for
+              equity-gap review.</p>
+            <div class="tile-meta"><b>Visuals:</b> Retention line chart, stacked graduation bar chart<br><b>Filters:</b> Gender, race/ethnicity, Pell status, first-gen, residency</div>
+          </div>
+        </div>
+        <div class="dash-tile">
+          <img src="dashboard_ashland_majors.png" alt="Ashland University Majors Count (as of Census) Dashboard" onclick="openLightbox(this.src)">
+          <div class="tile-body">
+            <h4>Majors Count (as of Census)</h4>
+            <p>Census-date view of active majors per college across ten fall terms, from 4,546 up to a
+              peak of 7,078, with a clickable college rail that cross-highlights the trend.</p>
+            <div class="tile-meta"><b>Visuals:</b> Majors-by-term bar chart, college filter rail<br><b>Filters:</b> College, department, major, student level</div>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Dashboard 2: Ashland Degrees Awarded -->
-    <div class="dash-card ashland">
-      <img src="dashboard_ashland_degrees_awarded.png" alt="Ashland University Degrees Awarded (Unduplicated) Dashboard">
-      <div class="dash-body">
-        <div class="dash-meta"><span class="org-pill">Ashland University</span></div>
-        <h3 class="dash-title">Degrees Awarded (Unduplicated)</h3>
-        <p class="dash-desc">
-          Built for academic affairs, this dashboard tracks how many degrees Ashland has conferred each
-          year, broken out two ways. The top chart shows degrees by level &mdash; certificate, associate,
-          bachelor's, master's, and doctorate &mdash; across eight academic years, so leadership can see
-          shifts in program mix over time. The bottom chart shows the same degree counts by college
-          (Arts and Sciences, Business and Economics, Education, Nursing and Health Sciences, and the
-          Seminary), surfacing which colleges are driving completions. A footnote flags that current-year
-          totals aren't final until summer degrees are awarded, so viewers don't misread an
-          in-progress year as a decline. Filters for semester, college, academic department, program,
-          degree level and type, undergraduate classification, online status, and correctional education
-          let staff isolate any slice of the completion pipeline.
-        </p>
-        <div class="feature-row">
-          <div class="feature"><div class="k">Role</div><div class="v">Ashland University &mdash; BI &amp; Data Analyst (2023&ndash;2025)</div></div>
-          <div class="feature"><div class="k">Key Visuals</div><div class="v">Degrees-by-level bar chart, degrees-by-college bar chart</div></div>
-          <div class="feature"><div class="k">Filters</div><div class="v">Semester, college, department, program, degree level/type, correctional education</div></div>
+    <!-- Project 2: Caltrans District 4 -->
+    <div class="project-group caltrans">
+      <div class="project-head">
+        <div class="project-meta-row"><span class="org-pill">Caltrans</span></div>
+        <h3>District 4 Maintenance &mdash; SHA Budget Reporting</h3>
+        <p class="project-role">Analyst II &middot; Jan 2026 &ndash; Present</p>
+        <p>Three linked Power BI views tracking State Highway Account (SHA) budget sub-allocation and
+          expenditure across every District 4 maintenance region for FY25/26, used by budget owners
+          each accounting period.</p>
+      </div>
+      <div class="dash-grid">
+        <div class="dash-tile">
+          <img src="dashboard_3a_caltrans_budget_status.jpg" alt="Caltrans FY25/26 District 4 Maintenance SHA Budget Status Dashboard" onclick="openLightbox(this.src)">
+          <div class="tile-body">
+            <h4>SHA Budget Status</h4>
+            <p>Overview of OE and PS allocation, encumbrance, and expenditure by region, with detail
+              tables that flag over-budget regions in red.</p>
+            <div class="tile-meta"><b>Visuals:</b> OE/PS allocation-by-region bar charts, status tables<br><b>Filters:</b> Region slicer, clear-all-slicers control</div>
+          </div>
+        </div>
+        <div class="dash-tile">
+          <img src="dashboard_3b_caltrans_oe_overview.jpg" alt="Caltrans Budget OE Allocation vs OE Expenditure Overview Dashboard" onclick="openLightbox(this.src)">
+          <div class="tile-body">
+            <h4>OE Allocation vs. Expenditure</h4>
+            <p>Drill-down comparing Operating Expense allocation vs. actual expenditure by region, with
+              an "Expense Watchpoint" KPI for early warning before period close.</p>
+            <div class="tile-meta"><b>Visuals:</b> OE combo chart by region, watchpoint KPI<br><b>Filters:</b> Fiscal year, maintenance type, fund name</div>
+          </div>
+        </div>
+        <div class="dash-tile">
+          <img src="dashboard_3c_caltrans_ps_overview.jpg" alt="Caltrans Budget PS Allocation vs PS Expenditure Overview Dashboard" onclick="openLightbox(this.src)">
+          <div class="tile-body">
+            <h4>PS Allocation vs. Expenditure</h4>
+            <p>Same combo-chart layout scoped to Personnel Services &mdash; the view leadership checks
+              first, since PS spend runs over $104M fund-wide, far larger than OE.</p>
+            <div class="tile-meta"><b>Visuals:</b> PS combo chart by region, watchpoint KPI<br><b>Filters:</b> Fiscal year, maintenance type, fund name</div>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Dashboard 3: Ashland Retention and Graduation -->
-    <div class="dash-card ashland">
-      <img src="dashboard_ashland_retention_graduation.png" alt="Ashland University Retention and Graduation Dashboard">
-      <div class="dash-body">
-        <div class="dash-meta"><span class="org-pill">Ashland University</span></div>
-        <h3 class="dash-title">Retention and Graduation</h3>
-        <p class="dash-desc">
-          Also built for academic affairs, this dashboard tracks how well Ashland keeps and graduates its
-          students, cohort over cohort. Headline KPI cards report the current fall-to-fall retention rate
-          (73%) and six-year graduation rate (60%). A retention-rate line chart compares three student
-          bands &mdash; first-year to sophomore, sophomore to junior, and junior to senior &mdash; across
-          eleven entering cohorts, with tooltips exposing the exact rate behind any point. A stacked
-          graduation-rate bar chart below breaks each cohort's outcome into four-, five-, and six-year
-          completions. A deep filter panel (gender, race/ethnicity, Pell eligibility, first-generation
-          status, residency, financial aid tier, high school GPA, and named programs like Ashbrook and
-          Honors) lets advisors and accreditation reviewers check whether equity gaps are closing, and a
-          companion tab repeats the same view scoped to student-athletes.
-        </p>
-        <div class="feature-row">
-          <div class="feature"><div class="k">Role</div><div class="v">Ashland University &mdash; BI &amp; Data Analyst (2023&ndash;2025)</div></div>
-          <div class="feature"><div class="k">Key Visuals</div><div class="v">Retention-rate line chart by cohort band, stacked graduation-rate bar chart</div></div>
-          <div class="feature"><div class="k">Filters</div><div class="v">Gender, race/ethnicity, Pell status, first-gen, residency, financial aid tier</div></div>
-        </div>
+    <!-- Project 3: Personal Practice Project -->
+    <div class="project-group project">
+      <div class="project-head">
+        <div class="project-meta-row"><span class="org-pill">Personal Practice Project</span><span class="practice-badge">Sample Data</span></div>
+        <h3>Gulf Coast Fuel &amp; Drilling Activity 2024</h3>
+        <p class="project-role">Independent build &middot; Market intelligence</p>
+        <p>A self-directed Power BI build modeled on a market-intelligence brief for Retif Oil &amp; Gas,
+          pairing upstream drilling activity with downstream fuel consumption on one page.</p>
       </div>
-    </div>
-
-    <!-- Dashboard 4: Ashland Majors Count -->
-    <div class="dash-card ashland">
-      <img src="dashboard_ashland_majors.png" alt="Ashland University Majors Count (as of Census) Dashboard">
-      <div class="dash-body">
-        <div class="dash-meta"><span class="org-pill">Ashland University</span></div>
-        <h3 class="dash-title">Majors Count (as of Census)</h3>
-        <p class="dash-desc">
-          Part of a broader majors-and-minors reporting suite, this dashboard gives leadership a
-          census-date view of how many active majors each college carries, and how that number has moved
-          over ten fall terms &mdash; from 4,546 up to a peak of 7,078. A left-hand rail lists every
-          college (Arts and Sciences, Business and Economics, Education, Nursing and Health Sciences,
-          Seminary, and Non-Degree) as clickable filters that cross-highlight the trend, alongside
-          dropdown filters for major department, specific major, student level, and correctional
-          education. It sits inside a larger SharePoint-hosted data hub alongside companion pages for
-          minors, admissions funnel, enrollment, credit hours, and degrees &mdash; giving staff one place
-          to navigate the full academic-reporting catalog.
-        </p>
-        <div class="feature-row">
-          <div class="feature"><div class="k">Role</div><div class="v">Ashland University &mdash; BI &amp; Data Analyst (2023&ndash;2025)</div></div>
-          <div class="feature"><div class="k">Key Visuals</div><div class="v">Majors-count-by-term bar chart, clickable college filter rail</div></div>
-          <div class="feature"><div class="k">Filters</div><div class="v">Major college, department, major, student level, correctional education</div></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Dashboard 5a -->
-    <div class="dash-card caltrans">
-      <img src="dashboard_3a_caltrans_budget_status.jpg" alt="Caltrans FY25/26 District 4 Maintenance SHA Budget Status Dashboard">
-      <div class="dash-body">
-        <div class="dash-meta"><span class="org-pill">Caltrans</span></div>
-        <h3 class="dash-title">FY25/26 District 4 Maintenance &mdash; SHA Budget Status</h3>
-        <p class="dash-desc">
-          Built as part of my current role as Analyst II at Caltrans District 4, this dashboard tracks
-          State Highway Account (SHA) budget sub-allocation and expenditure status across every
-          maintenance region for the fiscal year. An overview strip totals Operating Expense (OE) and
-          Personnel Services (PS) allocation, encumbrance, and expenditure against the fund, alongside an
-          accounting-period status indicator (AP4 Closed). Two horizontal bar charts break out total OE
-          and PS allocation by region, while two detail tables give budget owners a region-by-region read
-          on allocation vs. expenditure vs. encumbrance, with expense percentage and balance columns
-          conditionally formatted to flag regions running over budget in red. A region slicer and a
-          one-click "Clear All Slicers" control let a budget analyst or program manager drill from the
-          fund-wide total down to a single region in seconds.
-        </p>
-        <div class="feature-row">
-          <div class="feature"><div class="k">Role</div><div class="v">Caltrans District 4 &mdash; Analyst II (2026&ndash;Present)</div></div>
-          <div class="feature"><div class="k">Key Visuals</div><div class="v">OE/PS allocation-by-region bar charts, budget sub-allocation &amp; expenditure status tables</div></div>
-          <div class="feature"><div class="k">Filters</div><div class="v">Region slicer, fund name, clear-all-slicers control</div></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Dashboard 5b -->
-    <div class="dash-card caltrans">
-      <img src="dashboard_3b_caltrans_oe_overview.jpg" alt="Caltrans Budget OE Allocation vs OE Expenditure Overview Dashboard">
-      <div class="dash-body">
-        <div class="dash-meta"><span class="org-pill">Caltrans</span></div>
-        <h3 class="dash-title">Budget OE Allocation vs. OE Expenditure Overview</h3>
-        <p class="dash-desc">
-          A companion drill-down view built for the same District 4 maintenance budget, comparing
-          Operating Expense (OE) allocation against actual OE expenditure by region in a single combo
-          chart, with a summary table beneath showing allocation, expenditure, and expense percentage per
-          region plus a fund-wide total. Slicers for fiscal year, maintenance type (field vs. major
-          maintenance), and fund name let leadership isolate a specific funding source, while an "Expense
-          Watchpoint" KPI card surfaces a flagged-spend threshold at a glance, giving budget owners an
-          early warning before a full accounting-period close.
-        </p>
-        <div class="feature-row">
-          <div class="feature"><div class="k">Role</div><div class="v">Caltrans District 4 &mdash; Analyst II (2026&ndash;Present)</div></div>
-          <div class="feature"><div class="k">Key Visuals</div><div class="v">OE allocation-vs-expenditure combo chart by region, expense watchpoint KPI</div></div>
-          <div class="feature"><div class="k">Filters</div><div class="v">Fiscal year, maintenance type, fund name</div></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Dashboard 5c -->
-    <div class="dash-card caltrans">
-      <img src="dashboard_3c_caltrans_ps_overview.jpg" alt="Caltrans Budget PS Allocation vs PS Expenditure Overview Dashboard">
-      <div class="dash-body">
-        <div class="dash-meta"><span class="org-pill">Caltrans</span></div>
-        <h3 class="dash-title">Budget PS Allocation vs. PS Expenditure Overview</h3>
-        <p class="dash-desc">
-          The Personnel Services (PS) counterpart to the OE overview above, using the same combo-chart-plus-table
-          layout and the same fiscal year, maintenance type, and fund name slicers so budget owners can flip
-          between OE and PS views without relearning the report. PS allocation and expenditure run much larger
-          than OE across every region &mdash; over $104M fund-wide &mdash; so this view is what District 4
-          leadership checks first each accounting period to confirm labor spend is tracking to plan before the
-          period closes.
-        </p>
-        <div class="feature-row">
-          <div class="feature"><div class="k">Role</div><div class="v">Caltrans District 4 &mdash; Analyst II (2026&ndash;Present)</div></div>
-          <div class="feature"><div class="k">Key Visuals</div><div class="v">PS allocation-vs-expenditure combo chart by region, expense watchpoint KPI</div></div>
-          <div class="feature"><div class="k">Filters</div><div class="v">Fiscal year, maintenance type, fund name</div></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Dashboard 6: Retif Oil & Gas (Personal Practice Project) -->
-    <div class="dash-card project">
-      <img src="dashboard_retif_gulf_coast.jpg" alt="Gulf Coast Fuel and Drilling Activity 2024 Sample Dashboard for Retif Oil and Gas Market Intelligence">
-      <div class="dash-body">
-        <div class="dash-meta"><span class="org-pill">Personal Practice Project</span><span class="practice-badge">Sample Data</span></div>
-        <h3 class="dash-title">Gulf Coast Fuel &amp; Drilling Activity 2024 &mdash; Market Intelligence</h3>
-        <p class="dash-desc">
-          A self-directed Power BI build modeled on a market-intelligence brief for Retif Oil &amp; Gas,
-          pairing upstream drilling activity with downstream fuel consumption on one page. The left panel
-          tracks 2024 Gulf Coast diesel pricing ($3.46 average) against North American rig counts (787.17
-          average), with an area chart of weekly diesel prices and a companion line chart and table
-          breaking rig counts out by month. The right panel shifts to U.S. fuel consumption &mdash; 137.83
-          million gallons, 3M thousand barrels, and 16.57K trillion Btu for 2024 &mdash; split by state
-          (Texas, California, Florida, New York, North Carolina) in twin bar charts, then further broken
-          into Commercial, Industrial, and Transportation end-use categories via summary tables, a U.S.
-          choropleth map, and a donut chart showing transportation as the dominant consumption category.
-          A state slicer lets a viewer isolate consumption for any single state.
-        </p>
-        <div class="feature-row">
-          <div class="feature"><div class="k">Role</div><div class="v">Independent practice build (sample/public data)</div></div>
-          <div class="feature"><div class="k">Key Visuals</div><div class="v">Diesel price area chart, rig-count trend, state consumption bar charts, choropleth map, category donut</div></div>
-          <div class="feature"><div class="k">Filters</div><div class="v">Month, state</div></div>
+      <div class="dash-grid">
+        <div class="dash-tile">
+          <img src="dashboard_retif_gulf_coast.jpg" alt="Gulf Coast Fuel and Drilling Activity 2024 Sample Dashboard for Retif Oil and Gas Market Intelligence" onclick="openLightbox(this.src)">
+          <div class="tile-body">
+            <h4>Fuel &amp; Drilling Activity Overview</h4>
+            <p>Pairs 2024 Gulf Coast diesel pricing and rig-count trends with U.S. fuel consumption by
+              state and end-use category (Commercial/Industrial/Transportation), plus a choropleth map
+              and category donut.</p>
+            <div class="tile-meta"><b>Visuals:</b> Price/rig trends, state bar charts, choropleth map, category donut<br><b>Filters:</b> Month, state</div>
+          </div>
         </div>
       </div>
     </div>
 
   </div>
 </section>
+
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <img id="lightbox-img" src="" alt="Expanded dashboard screenshot">
+</div>
 
 <section id="skills">
   <div class="wrap">
@@ -584,6 +538,19 @@
     <div style="margin-top:8px; color:#5b6272;">Dashboard screenshots shown are from real reports built in the roles described above, plus independent practice builds using sample/public data.</div>
   </div>
 </footer>
+
+<script>
+  function openLightbox(src){
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox').classList.add('active');
+  }
+  function closeLightbox(){
+    document.getElementById('lightbox').classList.remove('active');
+  }
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape') closeLightbox();
+  });
+</script>
 
 </body>
 </html>
